@@ -18,6 +18,29 @@ include_once 'ConAL.php';
 <meta http-equiv="refresh" content="30">
 <title>Tela inicial</title>
 <link rel="stylesheet" type="text/css" href="estilo.css">
+<style>
+@media (max-width: 1000px) {
+  .bntv1{
+    position:static;
+  	border: 1px solid black;
+  	font-size: 600%;
+  	left: 0%;
+  	background-color: #032490;
+  	color:white;
+  	height: 20%;
+  	width: 100%;
+    padding:20px 10px;
+    border: 1px solid white;
+    border-radius: 20px;
+
+  }
+
+
+}
+
+
+}
+</style>
 </head>
 <body id="pgini1">
 <?php if($_SESSION['setor']=="Arquivo acadêmico"){
@@ -48,7 +71,7 @@ include_once 'ConAL.php';
 
 <div id="tela_inicial_tes" >
 <form  action="pg_pesquisa.php">
-  <button  class="bntv1" id="btntest">Pesquisa por matrícula</button>
+  <button class="bntv1" id="btntest">Pesquisa por matrícula</button>
 </form>
 <form  action="pg_pesquisa_nome.php">
   <button class="bntv1" id="btntest1">Pesquisa por nome</button>
@@ -56,10 +79,10 @@ include_once 'ConAL.php';
 <?php
 if($_SESSION['msg']==1){
   echo"<form  action='mensa_visu.php'>
-   <button class='bntv1' style='top:300px' id='btntest4'>Mensagem[$nun_msg]</button>
+   <button style='top:48%;' class='bntv1' id='btntest4'>Mensagem[$nun_msg]</button>
   </form>";
   echo"<form  action='sair.php'>
-    <button class='bntv1' style='top:400px' id='btntest2'>Sair</button>
+    <button style='top:65%;' class='bntv1' id='btntest2'>Sair</button>
   </form>";
 }else if ($_SESSION['msg']==2){
  echo"<form  action='#'>

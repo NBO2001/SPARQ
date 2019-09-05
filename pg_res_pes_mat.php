@@ -6,23 +6,47 @@ if($_SESSION['msg']==""){
 include_once "ConAL.php";
 $nun = filter_input(INPUT_POST,'nume',FILTER_SANITIZE_STRING);
 $nun = preg_replace("/\s+/","",$nun);
-if($nun==""){
-  header("Location:pg_ini1.php");
-  $_SESSION['ifon'] = "<script>alert('Ocorreu um erro')</script>";
-}else{
-      $result_usuario = "SELECT * FROM Alunos WHERE Num_mat LIKE '$nun'";
-      $resultado_usuario = mysqli_query($conn, $result_usuario);
-      $row_usuario = mysqli_fetch_array($resultado_usuario);
-      if($row_usuario['id'] == ""){
-        header("Location:pg_ini1.php");
-        $_SESSION['ifon'] = "<script>alert('Nenhum registro encontrado')</script>";
-      }else{
-      $_SESSION['id'] = $row_usuario['id'];
-      $result_usuarioa = "SELECT * FROM Ko WHERE imagem LIKE '".$_SESSION['id']."'";
-      $resultado_usuarioa = mysqli_query($conn, $result_usuarioa);
+$nume_dupli = filter_input(INPUT_POST,'nume_dupli',FILTER_SANITIZE_STRING);
+$nume_dupli = preg_replace("/\s+/","",$nume_dupli);
 
-      }
-}
+
+if ($nume_dupli <> ""){
+echo $nume_dupli;
+$result_usuario = "SELECT * FROM Alunos WHERE id LIKE '$nume_dupli'";
+$resultado_usuario = mysqli_query($conn, $result_usuario);
+$row_usuario = mysqli_fetch_array($resultado_usuario);
+
+$result_usuarioa = "SELECT * FROM Ko WHERE imagem LIKE '$nume_dupli'";
+$resultado_usuarioa = mysqli_query($conn, $result_usuarioa);
+
+
+}else{
+    if($nun==""){
+      //header("Location:pg_ini1.php");
+      $_SESSION['ifon'] = "<script>alert('Ocorreu um erro')</script>";
+    }else{
+          $vregistroduplos = "SELECT count(*) FROM Alunos WHERE Num_mat LIKE '$nun'";
+          $resultado_resgr = mysqli_query($conn, $vregistroduplos);
+          $row_usuariob = mysqli_fetch_array($resultado_resgr);
+          if ($row_usuariob['count(*)']>1) {
+            header("Location:nun_mat_duli.php");
+            $_SESSION['v_pesquisa_n_duplicado'] = $nun;
+          }else{
+
+            $result_usuario = "SELECT * FROM Alunos WHERE Num_mat LIKE '$nun'";
+            $resultado_usuario = mysqli_query($conn, $result_usuario);
+            $row_usuario = mysqli_fetch_array($resultado_usuario);
+            if($row_usuario['id'] == ""){
+            //  header("Location:pg_ini1.php");
+              $_SESSION['ifon'] = "<script>alert('Nenhum registro encontrado')</script>";
+            }else{
+            $_SESSION['id'] = $row_usuario['id'];
+            $result_usuarioa = "SELECT * FROM Ko WHERE imagem LIKE '".$_SESSION['id']."'";
+            $resultado_usuarioa = mysqli_query($conn, $result_usuarioa);
+            }
+            }
+    }
+  }
 ?>
 <!DOCTYPE html>
 <html lang=pt-br>

@@ -10,6 +10,37 @@ include_once 'ConAL.php';
 
 
 
+
+
+
+
+
+
+/*
+$nume_dupli = filter_input(INPUT_POST,'nume_dupli',FILTER_SANITIZE_STRING);
+$nume_dupli = preg_replace("/\s+/","",$nume_dupli);
+if($nume_dupli<>""){
+  echo $nume_dupli;
+  $result_usuario = "SELECT * FROM Alunos WHERE id LIKE '$nume_dupli'";
+  $resultado_usuario = mysqli_query($conn, $result_usuario);
+  $row_usuario = mysqli_fetch_array($resultado_usuario);
+  echo $row_usuario['Nome_civil'];
+  echo $row_usuario['Num_mat'];
+  echo $row_usuario['Cod_cur'];
+  echo $row_usuario['Nome_cur'];
+  echo $row_usuario['Fin'];
+  echo $row_usuario['Fev'];
+  echo $row_usuario['Ain'];
+  echo $row_usuario['Aev'];
+
+}
+
+*/
+
+
+
+
+
 /*
 $result_usuario = "SELECT * FROM Ife WHERE cod LIKE '124'";
 $resultado_usuario = mysqli_query($conn, $result_usuario);
