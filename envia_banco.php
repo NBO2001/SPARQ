@@ -53,11 +53,13 @@ $_SESSION['ifon']="<script>alert('Tipo do documento invalido!!')</script>";
     if ($ano_vb>0){
       $ano_ex = $ano_va+$ano_vb;
       $ano_ex = $ano + $ano_ex;
+      $ano_ex ="'".$ano_ex."'";
       $fase_con =$row_usuario['fase_con'];
       $fase_in = $row_usuario['fase_in'];
     }else{
       $ano_ex = $ano_va;
       $ano_ex = $ano + $ano_ex;
+      $ano_ex ="'".$ano_ex."'";
       $fase_con =$row_usuario['fase_con'];
       $fase_in = $row_usuario['fase_in'];
 
@@ -65,12 +67,13 @@ $_SESSION['ifon']="<script>alert('Tipo do documento invalido!!')</script>";
   }else {
     if ($ano_vb>0){
       $ano_ex = $ano_vb;
-      $ano_ex = $ano + $ano_ex;
+      $ano_ex =$ano + $ano_ex;
+      $ano_ex ="'".$ano_ex."'";
       $fase_con =$row_usuario['fase_con'];
       $fase_in = $row_usuario['fase_in'];
 
     }else{
-      $ano_ex ="";
+      $ano_ex ="NULL";
       $fase_con =$row_usuario['fase_con'];
       $fase_in = $row_usuario['fase_in'];
     }
@@ -93,7 +96,8 @@ $tes = "
   fwrite($fp, $tes);
   fclose($fp);
 
-  $sql = "INSERT INTO Ko (nome, imagem,nome_pdf,tipo_doc,ano_doc,data_inserido,can,fase_con,fase_in,destin_fin,ano_ex,usuarioname) VALUES ('$nome', '$nun','$nome_pdf','$tipo_doc','$ano','$dataL','$can','$fase_con','$fase_in','$destin_fin','$ano_ex','$usuarioname')";
+  $sql = "INSERT INTO Ko (id,nome, imagem,nome_pdf,tipo_doc,ano_doc,data_inserido,can,fase_con,fase_in,destin_fin,ano_ex,usuarioname) VALUES (NULL,'$nome', '$nun','$nome_pdf','$tipo_doc','$ano','$dataL','$can','$fase_con','$fase_in','$destin_fin',$ano_ex,'$usuarioname')";
+  echo $sql;
   $rs = mysqli_query($conn,$sql);
   //passthru('sh test.sh');
   $nome = utf8_encode ($nome);
@@ -101,7 +105,7 @@ $tes = "
 
   header("Location:Pesquisa.php");
   unset ($_SESSION['id']);
-  $_SESSION['ifon'] = "<p style='color:red;'>Salvo com sucesso!!</p>";
+  $_SESSION['ifon'] = "<script>alert('Salvo com sucesso!!')</script>";
 }
 
 ?>
