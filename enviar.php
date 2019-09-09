@@ -33,7 +33,7 @@ $_SESSION['ifon'] = "<script>alert('Nenhum registro localizado!!')</script>";
 <html lang=pt-br>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" type="text/css" href="estilo.css">
+<link rel="stylesheet" type="text/css" href="css/estilo.css">
 
 <title>Inserir</title>
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">

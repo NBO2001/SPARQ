@@ -116,3 +116,7 @@
   git commit -m 'Alunos 2019'
   git add pdf/14/
   git commit -m 'Alunos 2019'
+  git add pdf/7/
+  git commit -m 'Alunos 2018'
+  git add pdf/8/
+  git commit -m 'Alunos 2018'

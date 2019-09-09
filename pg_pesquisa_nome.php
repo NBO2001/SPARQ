@@ -10,7 +10,7 @@ if($_SESSION['msg']==""){
 <head>
 <meta charset="utf-8">
 <title>Tela inicial</title>
-<link rel="stylesheet" type="text/css" href="estilo.css">
+<link rel="stylesheet" type="text/css" href="css/estilo.css">
 </head>
 <body>
   <div style="width: 1400px;" id = "logo">

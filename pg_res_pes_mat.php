@@ -3,6 +3,11 @@ session_start();
 if($_SESSION['msg']==""){
  header("Location:index.php");
 }
+if(isset($_SESSION['ifon'])){
+  echo $_SESSION['ifon'];
+  unset ($_SESSION['ifon']);
+
+}
 include_once "ConAL.php";
 $nun = filter_input(INPUT_POST,'nume',FILTER_SANITIZE_STRING);
 $nun = preg_replace("/\s+/","",$nun);
@@ -11,7 +16,6 @@ $nume_dupli = preg_replace("/\s+/","",$nume_dupli);
 
 
 if ($nume_dupli <> ""){
-echo $nume_dupli;
 $result_usuario = "SELECT * FROM Alunos WHERE id LIKE '$nume_dupli'";
 $resultado_usuario = mysqli_query($conn, $result_usuario);
 $row_usuario = mysqli_fetch_array($resultado_usuario);
@@ -20,9 +24,22 @@ $result_usuarioa = "SELECT * FROM Ko WHERE imagem LIKE '$nume_dupli'";
 $resultado_usuarioa = mysqli_query($conn, $result_usuarioa);
 
 
-}else{
+}else if(isset($_SESSION['retorno'])){
+    $nume_dupli = $_SESSION['retorno'];
+    unset ($_SESSION['retorno']);
+
+    $result_usuario = "SELECT * FROM Alunos WHERE id LIKE '$nume_dupli'";
+    $resultado_usuario = mysqli_query($conn, $result_usuario);
+    $row_usuario = mysqli_fetch_array($resultado_usuario);
+
+    $result_usuarioa = "SELECT * FROM Ko WHERE imagem LIKE '$nume_dupli'";
+    $resultado_usuarioa = mysqli_query($conn, $result_usuarioa);
+
+
+
+  }else{
     if($nun==""){
-      //header("Location:pg_ini1.php");
+      header("Location:pg_ini1.php");
       $_SESSION['ifon'] = "<script>alert('Ocorreu um erro')</script>";
     }else{
           $vregistroduplos = "SELECT count(*) FROM Alunos WHERE Num_mat LIKE '$nun'";
@@ -37,7 +54,7 @@ $resultado_usuarioa = mysqli_query($conn, $result_usuarioa);
             $resultado_usuario = mysqli_query($conn, $result_usuario);
             $row_usuario = mysqli_fetch_array($resultado_usuario);
             if($row_usuario['id'] == ""){
-            //  header("Location:pg_ini1.php");
+              header("Location:pg_pesquisa.php");
               $_SESSION['ifon'] = "<script>alert('Nenhum registro encontrado')</script>";
             }else{
             $_SESSION['id'] = $row_usuario['id'];
@@ -52,8 +69,10 @@ $resultado_usuarioa = mysqli_query($conn, $result_usuarioa);
 <html lang=pt-br>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" type="text/css" href="estilo.css">
+<link rel="stylesheet" type="text/css" href="css/estilo.css">
+<?php
 
+?>
 <title>Inserir</title>
 </head>
 <body>
@@ -84,12 +103,12 @@ $resultado_usuarioa = mysqli_query($conn, $result_usuarioa);
          if($row_usuario['STS'] == 1){
            echo "<li><a href='devolucao.php'>Emprestimo/Devolução</a></li>";
            echo "<li><a href='#'>Histórico de emprestimos</a></li>";
-           echo "<li><a href='#'>Altera registro</a></li>";
+           echo "<li><a href='alter_registro.php'>Altera registro</a></li>";
            echo "<li><a href='sair.php'>Sair</a></li>";
          }else{
          echo "<li><a href='empr.php'>Emprestimo/Devolução</a></li>";
          echo "<li><a href='#'>Histórico de emprestimos</a></li>";
-         echo "<li><a href='#'>Altera registro</a></li>";
+         echo "<li><a href='alter_registro.php'>Altera registro</a></li>";
          echo "<li><a href='sair.php'>Sair</a></li>";}
        }
        ?>
@@ -99,21 +118,27 @@ $resultado_usuarioa = mysqli_query($conn, $result_usuarioa);
 <!-- Responsavel pela pesquisa-->
 <div id="hu" >
 <h1 id="tituhu">Informações do aluno:</h1>
-<label class="infaluno">Nome: &nbsp</label>
+<label style="color:#FE642E;" class="infaluno">Nome civil: &nbsp</label>
 <label class="infaluno"><?php echo $row_usuario['Nome_civil']; ?></label><br>
-<label class="infaluno">Matrícula: &nbsp</label>
+<label style="color:#FE642E;" class="infaluno">Nome social: &nbsp</label>
+<label class="infaluno"><?php echo $row_usuario['Nome_social']; ?></label><br>
+<label style="color:#FE642E;" class="infaluno">Matrícula: &nbsp</label>
 <label class="infaluno"><?php echo $row_usuario['Num_mat']; ?>&nbsp&nbsp&nbsp&nbsp&nbsp</label>
-<label class="infaluno">Curso: &nbsp</label>
+<label style="color:#FE642E;" class="infaluno">Curso: &nbsp</label>
 <label class="infaluno"><?php echo $row_usuario['Cod_cur']; ?> -- &nbsp </label>
-<label class="infaluno"><?php echo $row_usuario['Nome_cur']; ?></label><br>
-<label class="infaluno">Forma de ingresso: &nbsp</label>
-<label class="infaluno"><?php echo $row_usuario['Fin']; ?></label><br>
-<label class="infaluno">Forma de evasão: &nbsp</label>
-<label class="infaluno"><?php echo $row_usuario['Fev']; ?></label><br>
-<label class="infaluno">Ano de ingresso: &nbsp</label>
-<label class="infaluno"><?php echo $row_usuario['Ain']; ?></label><br>
-<label class="infaluno">Ano de evsão: &nbsp</label>
-<label class="infaluno"><?php echo $row_usuario['Aev']; ?></label>
+<label style="color:#FE642E;" class="infaluno"><?php echo $row_usuario['Nome_cur']; ?></label><br>
+<label style="color:#FE642E;" class="infaluno">Forma de ingresso: &nbsp</label>
+<label  class="infaluno"><?php echo $row_usuario['Fin']; ?> &nbsp&nbsp | &nbsp</label>
+<label style="color:#FE642E;" class="infaluno">Ano de ingresso: &nbsp</label>
+<label  class="infaluno"><?php echo $row_usuario['Ain']; ?></label><br>
+
+<label style="color:#FE642E;" class="infaluno">Forma de evasão: &nbsp</label>
+<label class="infaluno"><?php echo $row_usuario['Fev']; ?>&nbsp&nbsp | &nbsp</label>
+<label style="color:#FE642E;" class="infaluno">Ano de evsão: &nbsp</label>
+<label class="infaluno"><?php echo $row_usuario['Aev']; ?>&nbsp&nbsp | &nbsp</label>
+<label style="color:#FE642E;" class="infaluno">Dados retirados do: &nbsp</label>
+<label class="infaluno"><?php echo $row_usuario['sistema']; ?></label><br>
+
 <label class="infaluno"><?php
 if($row_usuario['STS'] == 1){
   echo "<span style='color:red;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AVISO:A pasta não está no arquivo</span>";

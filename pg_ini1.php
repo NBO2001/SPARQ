@@ -17,7 +17,7 @@ include_once 'ConAL.php';
 <meta charset="utf=8">
 <meta http-equiv="refresh" content="30">
 <title>Tela inicial</title>
-<link rel="stylesheet" type="text/css" href="estilo.css">
+<link rel="stylesheet" type="text/css" href="css/estilo.css">
 <style>
 @media (max-width: 1000px) {
   .bntv1{

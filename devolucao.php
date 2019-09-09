@@ -5,7 +5,7 @@ if($_SESSION['msg']==""){
 }
 include_once 'ConAL.php';
 $hid = $_SESSION['id'];
-
+$_SESSION['retorno'] = $hid;
 $pesquisa ="SELECT * FROM emp WHERE id_al = '$hid' AND sta = 1";
 
 $resu = mysqli_query($conn, $pesquisa);
@@ -18,6 +18,7 @@ $up_empre = "UPDATE emp SET sta = '0', dev_data = '$dataLocal', dev_res = '$usua
 $rra = mysqli_query($conn, $up_empre);
 $up_alunos="UPDATE Alunos SET STS = '0' WHERE Alunos.id =".$hid;
 $rrab = mysqli_query($conn, $up_alunos);
-echo "<script>window.open('pg_pesquisa.php','_top');</script>";
+$_SESSION['ifon'] = "<script>alert('Sucesso ao devolver')</script>";
+echo "<script>window.open('pg_res_pes_mat.php','_top');</script>";
 
 ?>

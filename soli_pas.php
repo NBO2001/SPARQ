@@ -8,7 +8,7 @@ include_once 'ConAL.php';
 <html>
 <head>
 <meta charset="utf-8">
-<link rel="stylesheet" type="text/css" href="estilo.css">
+<link rel="stylesheet" type="text/css" href="css/estilo.css">
 <title>Enviar msg</title>
 </head>
 <body>
